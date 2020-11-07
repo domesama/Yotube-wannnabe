@@ -6,6 +6,12 @@ export class VideoDetail extends Component {
       <div> Loading...</div>
     ) : (
       <div>
+        <div className="ui embed">
+          <iframe
+            src={`https://www.youtube.com/embed/${this.props.vid.id.videoId}`}
+            frameBorder="0"
+          ></iframe>
+        </div>
         <div className="ui segment">
           <h4 className="ui header"> {this.props.vid.snippet.title} </h4>
           <p> {this.props.vid.snippet.description}</p>
