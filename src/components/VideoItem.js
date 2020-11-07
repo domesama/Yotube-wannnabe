@@ -14,7 +14,7 @@ export class VideoItem extends Component {
         <img
           className="ui image"
           src={this.props.vid.snippet.thumbnails.medium.url}
-          alt=""
+          alt={this.props.vid.snippet.title}
         />
         <div className="content">
           <div className="header">{this.props.vid.snippet.title}</div>

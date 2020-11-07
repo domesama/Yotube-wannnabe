@@ -8,6 +8,7 @@ export class VideoDetail extends Component {
       <div>
         <div className="ui embed">
           <iframe
+            title="Video Player"
             src={`https://www.youtube.com/embed/${this.props.vid.id.videoId}`}
             frameBorder="0"
           ></iframe>

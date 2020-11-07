@@ -9,6 +9,9 @@ export class Apps extends Component {
     listOfVideos: [],
     selectedVid: null,
   };
+  componentDidMount() {
+    this.userHasSubmmited("Pekora");
+  }
   userHasSubmmited = async (term) => {
     // console.log(term);
     const res = await youtube.get("/search", {
@@ -17,7 +20,10 @@ export class Apps extends Component {
       },
     });
     // console.log(res["data"]["items"]);
-    this.setState({ listOfVideos: res["data"]["items"] });
+    this.setState({
+      listOfVideos: res["data"]["items"],
+      selectedVid: res["data"]["items"][0],
+    });
   };
   onVideoSelect = (vid) => {
     console.log(vid);
@@ -27,11 +33,19 @@ export class Apps extends Component {
     return (
       <div className="ui container">
         <SearchBar userHasSubmmited={this.userHasSubmmited} />
-        <VideoDetail vid={this.state.selectedVid} />
-        <VideoList
-          listOfVideos={this.state.listOfVideos}
-          onVideoSelect={this.onVideoSelect}
-        />
+        <div className="ui grid">
+          <div className="ui row">
+            <div className="eleven wide column">
+              <VideoDetail vid={this.state.selectedVid} />
+            </div>
+            <div className="five wide column">
+              <VideoList
+                listOfVideos={this.state.listOfVideos}
+                onVideoSelect={this.onVideoSelect}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
