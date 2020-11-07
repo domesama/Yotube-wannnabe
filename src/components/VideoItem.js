@@ -1,9 +1,16 @@
 import React, { Component } from "react";
+import "./VideoItem.css";
 
 export class VideoItem extends Component {
+  state = {
+    currentVid: null,
+  };
   render() {
     return (
-      <div className="item">
+      <div
+        className=" video-item item"
+        onClick={() => this.props.onVideoSelect(this.props.vid)}
+      >
         <img
           className="ui image"
           src={this.props.vid.snippet.thumbnails.medium.url}
