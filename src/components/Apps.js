@@ -32,6 +32,12 @@ export class Apps extends Component {
   render() {
     return (
       <div className="ui container">
+        <h1
+          className="ui center aligned massive message"
+          style={{ marginTop: "50px" }}
+        >
+          OwO Search
+        </h1>
         <SearchBar userHasSubmmited={this.userHasSubmmited} />
         <div className="ui grid">
           <div className="ui row">
