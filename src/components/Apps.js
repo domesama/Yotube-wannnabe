@@ -65,10 +65,8 @@ import VideoList from "./VideoList";
 import VideoDetail from "./VideoDetail";
 
 function Apps() {
-  const [videoState, setVideoState] = useState({
-    listOfVideos: [],
-    selectedVid: null,
-  });
+  const [listOfVideoState, setListOfVideoState] = useState([]);
+  const [selectedVid, setSelectedVidState] = useState(null);
 
   useEffect(() => {
     userHasSubmmited("Pekora");
@@ -81,15 +79,8 @@ function Apps() {
       },
     });
     // console.log(res["data"]["items"]);
-    setVideoState({
-      listOfVideos: res["data"]["items"],
-      selectedVid: res["data"]["items"][0],
-    });
-  };
-
-  const onVideoSelect = (vid) => {
-    console.log(vid);
-    this.setState({ selectedVid: vid });
+    setListOfVideoState(res["data"]["items"]);
+    setSelectedVidState(res["data"]["items"][0]);
   };
 
   return (
@@ -104,12 +95,13 @@ function Apps() {
       <div className="ui grid">
         <div className="ui row">
           <div className="eleven wide column">
-            <VideoDetail vid={videoState.selectedVid} />
+            <VideoDetail vid={selectedVid} />
           </div>
           <div className="five wide column">
             <VideoList
-              listOfVideos={videoState.listOfVideos}
-              onVideoSelect={onVideoSelect}
+              listOfVideos={listOfVideoState}
+              // onVideoSelect={(vid) => setSelectedVidState(vid)}
+              onVideoSelect={setSelectedVidState}
             />
           </div>
         </div>
