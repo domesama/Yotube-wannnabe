@@ -60,28 +60,33 @@
 
 import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
-import youtube from "../apis/youtube";
 import VideoList from "./VideoList";
 import VideoDetail from "./VideoDetail";
+import useVideos from "../hooks/useVideos";
 
 function Apps() {
-  const [listOfVideoState, setListOfVideoState] = useState([]);
+  // const [listOfVideoState, setListOfVideoState] = useState([]);
   const [selectedVid, setSelectedVidState] = useState(null);
+  const [videos, search] = useVideos("Pekora");
 
   useEffect(() => {
-    userHasSubmmited("Pekora");
-  }, []);
+    setSelectedVidState(videos[0]);
+  }, [videos]);
 
-  const userHasSubmmited = async (term) => {
-    const res = await youtube.get("/search", {
-      params: {
-        q: term,
-      },
-    });
-    // console.log(res["data"]["items"]);
-    setListOfVideoState(res["data"]["items"]);
-    setSelectedVidState(res["data"]["items"][0]);
-  };
+  // useEffect(() => {
+  //   userHasSubmmited("Pekora");
+  // }, []);
+
+  // const userHasSubmmited = async (term) => {
+  //   const res = await youtube.get("/search", {
+  //     params: {
+  //       q: term,
+  //     },
+  //   });
+  //   // console.log(res["data"]["items"]);
+  //   setListOfVideoState(res["data"]["items"]);
+  //   setSelectedVidState(res["data"]["items"][0]);
+  // };
 
   return (
     <div className="ui container">
@@ -91,7 +96,7 @@ function Apps() {
       >
         OwO Search
       </h1>
-      <SearchBar userHasSubmmited={userHasSubmmited} />
+      <SearchBar userHasSubmmited={search} />
       <div className="ui grid">
         <div className="ui row">
           <div className="eleven wide column">
@@ -99,7 +104,7 @@ function Apps() {
           </div>
           <div className="five wide column">
             <VideoList
-              listOfVideos={listOfVideoState}
+              listOfVideos={videos}
               // onVideoSelect={(vid) => setSelectedVidState(vid)}
               onVideoSelect={setSelectedVidState}
             />
